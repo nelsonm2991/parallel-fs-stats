@@ -1,6 +1,9 @@
 module Main (main) where
 
 import Lib
+import Traversal
 
 main :: IO ()
-main = someFunc
+main = do
+  list <- traverseFS "/home" []
+  return ()
