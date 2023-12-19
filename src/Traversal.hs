@@ -5,7 +5,7 @@ module Traversal
 import System.Directory
 import System.Posix.Files
 import System.Posix.Types
-import Control.Monad(forM)
+import Control.Monad(forM, guard)
 
 data FileInfo = FileInfo { path :: FilePath
                          , stats :: FileStats }
@@ -31,11 +31,19 @@ traverseFS path infoList = do
     True -> do
       -- Get the contents of the directory
       dirContents <- listDirectory path
+      guard ((length dirContents) > 1)
+      -- Convert paths to file information, and get seperate list for sub-directories
       let filePaths = map (\fileName -> path ++ "/" ++ fileName) dirContents
       fileInfos <- getFileInfos filePaths
-      -- For now, try to output the contents of each path encountered
-      --mapM_ putStrLn dirContents
-      --putStrLn "hello"
+      let subDirsInfos = [subDir | subDir <- fileInfos, (isDir (stats subDir))]
+      -- fileInfos : results from all traverseFS calls to subDirsInfos paths
+      --
+      -- Model:
+      -- for each subDir in subDirsInfos:
+      --     call traverseFS on the filePath
+      --     append the results to a results list
+      -- return fileInfos : results list
+
       return []
     False -> return []
 
