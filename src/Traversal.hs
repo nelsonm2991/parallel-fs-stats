@@ -16,11 +16,6 @@ data FileStats = FileStats { devID :: DeviceID
                            , fSize :: FileOffset
                            , isDir :: Bool }
 
--- TODO: add Show instances for FileInfo and FileStats
-{-
-instance Show Product where
-  show = printFields [show . pProdID, pName, show . pPrice]
--}
 printFields :: [a -> String] -> a -> String
 printFields functs object = intercalate " " $ map ($ object) functs
 
@@ -30,6 +25,8 @@ instance Show FileStats where
 instance Show FileInfo where
   show = printFields [show . fPath, show . stats, show . depth]
 
+-- TODO: Consider defining Eq for both types so we can sort lists of them efficiently
+
 {-
 Library for traversing the file system to collect [[FilePath : FileStats]]
 adjacency lists
@@ -37,7 +34,6 @@ adjacency lists
 
 traverseFS :: Int -> FilePath -> IO [FileInfo]
 traverseFS depth path = do
-  --putStrLn ("considering: " ++ path)
   exists <- doesDirectoryExist path
   case exists of
     True -> do
