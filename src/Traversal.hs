@@ -5,12 +5,13 @@ module Traversal
 import System.Directory
 import System.Posix.Files
 import System.Posix.Types
+import Control.Monad(forM)
 
-data FileInfo = FileAllStats { path :: FilePath
-                                 , stats :: FileStats }
+data FileInfo = FileInfo { path :: FilePath
+                         , stats :: FileStats }
 
-data FileStats = FileStats { deviceID :: DeviceID
-                           , fileSize :: FileOffset
+data FileStats = FileStats { devID :: DeviceID
+                           , fSize :: FileOffset
                            , isDir :: Bool }
 
 -- Todo: add instance Show for FileStats for easy output
@@ -29,14 +30,30 @@ traverseFS path infoList = do
   case exists of
     True -> do
       -- Get the contents of the directory
-      --dirContents <- listDirectory path
+      dirContents <- listDirectory path
+      let filePaths = map (\fileName -> path ++ "/" ++ fileName) dirContents
+      fileInfos <- getFileInfos filePaths
       -- For now, try to output the contents of each path encountered
-      --putStrLn (dirContents)
-      putStrLn "hello"
+      --mapM_ putStrLn dirContents
+      --putStrLn "hello"
       return []
     False -> return []
 
+getFileInfos :: [FilePath] -> IO [FileInfo]
+getFileInfos filePaths = forM filePaths $ \filePath -> do
+  fileStatus <- getFileStatus filePath
+  let toFileInfo :: FilePath -> FileStatus -> FileInfo
+      toFileInfo filePath fileStatus = FileInfo { path = filePath, stats = FileStats { devID = (deviceID fileStatus)
+                                                                                     , fSize = (fileSize fileStatus)
+                                                                                     , isDir = (isDirectory fileStatus)}}
+  return (toFileInfo filePath fileStatus)
 
+{-
+getDeviceIDs :: [FilePath] -> IO [DeviceID]
+getDeviceIDs filePaths = forM filePaths $ \filePath -> do
+  fileStatus <- getFileStatus filePath
+  return $ fileDevice fileStatus
+-}
 
 {-
 readTableFile :: String -> (Handle -> IO a) -> IO [a]
