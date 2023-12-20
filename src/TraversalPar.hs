@@ -1,7 +1,11 @@
 module TraversalPar
     ( traverseFSPar
-      , FileInfo
-      , FileStats
+    , FileInfo
+    , FileStats
+    , depth
+    , stats
+    , fPath
+    , fSize
     ) where
 
 import System.Directory
