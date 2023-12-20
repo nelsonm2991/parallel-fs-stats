@@ -1,5 +1,7 @@
 module TraversalPar
     ( traverseFSPar
+      , FileInfo
+      , FileStats
     ) where
 
 import System.Directory
@@ -48,11 +50,6 @@ traverseFSPar depth path = do
       let subDirPaths = [(fPath subDir) | subDir <- subDirsInfos]
 
       -- Recursively explore the sub-directories and grab their [FileInfo]s
-      --overallResult <- concatMapM (traverseFSPar (depth + 1)) subDirPaths
-      --overallResult <- parMap rpar (traverseFSPar (depth + 1)) subDirPaths
-      --let overallResultLists = parMap rpar (traverseFSPar (depth + 1)) subDirPaths
-      --overallResult <- consolIOLists overallResultLists
-
       -- Depth limit on parallelization
       case (depth < 4) of
         True -> do

@@ -1,5 +1,11 @@
 module Traversal
     ( traverseFS
+    , FileInfo
+    , FileStats
+    , depth
+    , stats
+    , fPath
+    , fSize
     ) where
 
 import System.Directory
