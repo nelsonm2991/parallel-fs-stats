@@ -7,6 +7,7 @@ import System.Posix.Files
 import System.Posix.Types
 import Control.Monad(forM, guard)
 import Data.List(intercalate)
+import Control.Parallel.Strategies(rpar, parMap)
 
 data FileInfo = FileInfo { fPath :: FilePath
                          , stats :: FileStats
@@ -47,7 +48,11 @@ traverseFSPar depth path = do
       let subDirPaths = [(fPath subDir) | subDir <- subDirsInfos]
 
       -- Recursively explore the sub-directories and grab their [FileInfo]s
-      overallResult <- concatMapM (traverseFSPar (depth + 1)) subDirPaths
+      --overallResult <- concatMapM (traverseFSPar (depth + 1)) subDirPaths
+      --overallResult <- parMap rpar (traverseFSPar (depth + 1)) subDirPaths
+      let overallResultLists = parMap rpar (traverseFSPar (depth + 1)) subDirPaths
+      overallResult <- consolIOLists overallResultLists
+
 
       return (fileInfos ++ overallResult)
     False -> do
@@ -72,3 +77,8 @@ concatMapM :: Monad m => (a -> m [b]) -> [a] -> m [b]
 {-# INLINE concatMapM #-}
 concatMapM op = foldr f (pure [])
     where f x xs = do x <- op x; if null x then xs else do xs <- xs; pure $ x++xs
+
+consolIOLists :: [IO [a]] -> IO [a]
+consolIOLists lists = do
+  allLists <- sequence lists
+  return (concat allLists)
