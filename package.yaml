@@ -2,8 +2,8 @@ name:                fs-project
 version:             0.1.0.0
 github:              "githubuser/fs-project"
 license:             BSD-3-Clause
-author:              "Author name here"
-maintainer:          "example@example.com"
+author:              "Matthew Nelson"
+maintainer:          "mrn2135@columbia.edu"
 copyright:           "2023 Author name here"
 
 extra-source-files:

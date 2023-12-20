@@ -50,11 +50,21 @@ traverseFSPar depth path = do
       -- Recursively explore the sub-directories and grab their [FileInfo]s
       --overallResult <- concatMapM (traverseFSPar (depth + 1)) subDirPaths
       --overallResult <- parMap rpar (traverseFSPar (depth + 1)) subDirPaths
-      let overallResultLists = parMap rpar (traverseFSPar (depth + 1)) subDirPaths
-      overallResult <- consolIOLists overallResultLists
+      --let overallResultLists = parMap rpar (traverseFSPar (depth + 1)) subDirPaths
+      --overallResult <- consolIOLists overallResultLists
+
+      -- Depth limit on parallelization
+      case (depth < 4) of
+        True -> do
+          let overallResultLists = parMap rpar (traverseFSPar (depth + 1)) subDirPaths
+          overallResult <- consolIOLists overallResultLists
+          return (fileInfos ++ overallResult)
+        False -> do
+          overallResult <- concatMapM (traverseFSPar (depth + 1)) subDirPaths
+          return (fileInfos ++ overallResult)
 
 
-      return (fileInfos ++ overallResult)
+      --return (fileInfos ++ overallResult)
     False -> do
       -- FileInfo for this file already collected via parent directory, so ignore it
       return []
