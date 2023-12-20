@@ -35,3 +35,6 @@ instance Show FileInfo where
 -- Use existing Haskell libraries to recursively, in parallel, traverse a file system
 -- directory. Try to see how much improvement there is between the pre-made
 -- parallel library and the one you (attempted to make) made
+traverseFSParPremade :: Int -> FilePath -> IO [FileInfo]
+traverseFSParPremade num path = do
+  return []

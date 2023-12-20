@@ -28,6 +28,7 @@ library
       Lib
       Traversal
       TraversalPar
+      TraversalParPremade
       Visual
   other-modules:
       Paths_fs_project
