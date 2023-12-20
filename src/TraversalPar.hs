@@ -55,6 +55,11 @@ traverseFSPar depth path = do
 
       -- Recursively explore the sub-directories and grab their [FileInfo]s
       -- Depth limit on parallelization
+      --
+      -- It's likely the "parallelization" being done here is not actually
+      -- parallel. This is because the non-parallel executions is identical
+      -- to the parallel execution. It seems like everything is still
+      -- being done sequentially
       case (depth < 4) of
         True -> do
           let overallResultLists = parMap rpar (traverseFSPar (depth + 1)) subDirPaths
