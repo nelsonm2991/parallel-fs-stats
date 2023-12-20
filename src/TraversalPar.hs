@@ -60,7 +60,11 @@ traverseFSPar depth path = do
       -- parallel. This is because the non-parallel executions is identical
       -- to the parallel execution. It seems like everything is still
       -- being done sequentially
-      case (depth < 4) of
+      --
+      -- Idea:
+      -- try to immediately force evaluate of everything before placing them
+      -- into the list
+      case (depth < 2) of
         True -> do
           let overallResultLists = parMap rpar (traverseFSPar (depth + 1)) subDirPaths
           overallResult <- consolIOLists overallResultLists
