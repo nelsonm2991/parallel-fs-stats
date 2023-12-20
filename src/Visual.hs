@@ -2,14 +2,16 @@ module Visual
     ( displayLines
     ) where
 
---import Traversal
--- hello
-import TraversalPar
+import CustomTypes
 import Data.List(sortBy)
+
+{-
+Library for visualizing file information provided by a directory traversal
+-}
 
 displayLines :: [FileInfo] -> String -> [String]
 displayLines infoList prefix = strList
-  where trimmedList = [x | x <- infoList{-, (depth x) < 3-}]
+  where trimmedList = [x | x <- infoList]
         sortedList = sortBy (\x y -> compare (show (fPath x)) (show (fPath y))) trimmedList
         strList = [(getElegantOutput x prefix) | x <- sortedList]
 
