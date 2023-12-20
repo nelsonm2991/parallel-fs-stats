@@ -9,7 +9,7 @@ import Data.List(sortBy)
 
 displayLines :: [FileInfo] -> String -> [String]
 displayLines infoList prefix = strList
-  where trimmedList = [x | x <- infoList, (depth x) < 3]
+  where trimmedList = [x | x <- infoList{-, (depth x) < 3-}]
         sortedList = sortBy (\x y -> compare (show (fPath x)) (show (fPath y))) trimmedList
         strList = [(getElegantOutput x prefix) | x <- sortedList]
 
