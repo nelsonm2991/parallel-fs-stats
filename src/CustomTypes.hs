@@ -5,8 +5,6 @@ module CustomTypes
     , concatMapM
     ) where
 
--- chage
-
 import System.Posix.Files
 import System.Posix.Types
 import Control.Monad(forM)

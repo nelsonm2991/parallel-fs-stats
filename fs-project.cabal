@@ -29,7 +29,7 @@ library
       Lib
       Traversal
       TraversalPar
-      TraversalParPremade
+      TraversalParV2
       Visual
   other-modules:
       Paths_fs_project
@@ -39,7 +39,8 @@ library
       src
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
-      base >=4.7 && <5
+      async
+    , base >=4.7 && <5
     , directory
     , parallel
     , unix
@@ -55,7 +56,8 @@ executable fs-project-exe
       app
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      async
+    , base >=4.7 && <5
     , directory
     , fs-project
     , parallel
@@ -73,7 +75,8 @@ test-suite fs-project-test
       test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      async
+    , base >=4.7 && <5
     , directory
     , fs-project
     , parallel
