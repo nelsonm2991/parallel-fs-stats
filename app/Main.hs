@@ -6,9 +6,6 @@ import TraversalParV2
 import Visual
 import System.Environment(getArgs)
 
--- Required package
--- https://hackage.haskell.org/package/async
-
 -- "/home/matthew/PFP"
 
 -- Argument structure:

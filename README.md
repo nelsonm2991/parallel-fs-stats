@@ -24,19 +24,14 @@ stack build
 
 stack ghc -- -O2 -threaded -rtsopts -eventlog app/Main.hs
 
-time ./app/Main (0,1, or 2) (rootDir absolute path)
+time ./app/Main (0,1, or 2) (rootDir absolute path) +RTS -N4 -ls
 
 # Reproducing Test Results
 All of my tests were ran on a directory containing a fresh clone of the linux kernel and
 the source from this repo.
 
-Example
-.
-\_ linux
-\_ parallel-fs-stats
-
 # Test Environment
-Ubuntu VM, 4 vCPu, 12 GB Memory, 100 GB Disk
+Ubuntu VM, 4 vCPU, 12 GB Memory, 100 GB Disk
 
 2018 Intel MacbookPro
 
