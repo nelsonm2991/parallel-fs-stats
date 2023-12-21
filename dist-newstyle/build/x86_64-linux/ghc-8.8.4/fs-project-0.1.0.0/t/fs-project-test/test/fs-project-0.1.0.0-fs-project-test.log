@@ -1,0 +1,4 @@
+Test suite fs-project-test: RUNNING...
+Cases: 1  Tried: 0  Errors: 0  Failures: 0                                          Cases: 1  Tried: 1  Errors: 0  Failures: 0
+Test suite fs-project-test: PASS
+Test suite logged to: /home/matthew/PFP/parallel-fs-stats/dist-newstyle/build/x86_64-linux/ghc-8.8.4/fs-project-0.1.0.0/t/fs-project-test/test/fs-project-0.1.0.0-fs-project-test.log
