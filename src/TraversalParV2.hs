@@ -5,18 +5,8 @@ module TraversalParV2
 import CustomTypes
 import System.Directory
 import System.Posix.Files
-import System.Posix.Types
-import Control.Monad(forM, guard)
-import Data.List(intercalate)
 import Control.Parallel.Strategies(rpar, parMap)
 import Control.Concurrent.Async(forConcurrently)
-
--- Use existing Haskell libraries to recursively, in parallel, traverse a file system
--- directory. Try to see how much improvement there is between the pre-made
--- parallel library and the one you (attempted to make) made
-{-traverseFSParPremade :: Int -> FilePath -> IO [FileInfo]
-traverseFSParPremade num path = do
-  return []-}
 
 traverseFSParV2 :: Int -> FilePath -> IO [FileInfo]
 traverseFSParV2 depthVal path = do
@@ -51,21 +41,6 @@ consolIOLists :: [IO [a]] -> IO [a]
 consolIOLists lists = do
   allLists <- sequence lists
   return (concat allLists)
-
--- Planning
--- getFileInfos should be parallelized if possible
--- calls to traverseFSParPremade should also be parallelized if possible
-
---getFileInfosPar :: [FilePath] -> Int -> [IO FileInfo]
-{-getFileInfosPar filePaths fileDepth = parMap rpar ( \indivFilePath -> do
-  indivFileStatus <- getFileStatus indivFilePath
-  let toFileInfo :: FilePath -> FileStatus -> FileInfo
-      toFileInfo filePath fileStatus = FileInfo { fPath = filePath
-                                                , stats = FileStats { devID = (deviceID fileStatus)
-                                                                    , fSize = (fileSize fileStatus)
-                                                                    , isDir = (isDirectory fileStatus)}
-                                                , depth = fileDepth}
-  return (toFileInfo indivFilePath indivFileStatus)) filePaths -}
 
 getFileInfosPar :: [FilePath] -> Int -> IO [FileInfo]
 getFileInfosPar filePaths fileDepth = forConcurrently filePaths ( \indivFilePath -> do
