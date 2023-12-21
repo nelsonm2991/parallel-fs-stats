@@ -6,8 +6,8 @@ import CustomTypes
 import System.Directory
 
 {-
-Library for traversing the file system to collect [[FilePath : FileStats]]
-adjacency lists
+Library for traversing the file system to collect [FileInfo]
+for all encoutnered files and directories
 -}
 
 traverseFS :: Int -> FilePath -> IO [FileInfo]

@@ -8,6 +8,11 @@ import System.Posix.Files
 import Control.Parallel.Strategies(rpar, parMap)
 import Control.Concurrent.Async(forConcurrently)
 
+{-
+Library for traversing the file system to collect [FileInfo]
+for all encoutnered files and directories, in a parallel fashion
+-}
+
 traverseFSParV2 :: Int -> FilePath -> IO [FileInfo]
 traverseFSParV2 depthVal path = do
   exists <- doesDirectoryExist path

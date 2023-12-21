@@ -13,18 +13,17 @@ import System.Environment(getArgs)
 main :: IO ()
 main = do
   (choice:rootDir:_) <- getArgs
-  -- Args
-  -- 0 -> sequential traversal
-  -- 1 -> parallel traversal, version 1
-  -- 2 -> parallel traversal, version 2
   case choice of
     "0" -> do
+      -- Sequential traversal
       list <- traverseFS 0 rootDir
       mapM_ putStrLn (displayLines list rootDir)
     "1" -> do
+      -- "Parallel" traversal, V1
       list <- traverseFSPar 0 rootDir
       mapM_ putStrLn (displayLines list rootDir)
     "2" -> do
+      -- Parallel traversal, V2
       list <- traverseFSParV2 0 rootDir
       mapM_ putStrLn (displayLines list rootDir)
     _ -> do

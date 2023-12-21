@@ -7,6 +7,8 @@ import Data.List(sortBy)
 
 {-
 Library for visualizing file information provided by a directory traversal
+Use for processing and displaying desired output from [FileInfo] input
+from the traversals
 -}
 
 displayLines :: [FileInfo] -> String -> [String]

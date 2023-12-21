@@ -7,8 +7,8 @@ import System.Directory
 import Control.Parallel.Strategies(rpar, parMap)
 
 {-
-Library for traversing the file system to collect [[FilePath : FileStats]]
-adjacency lists, in a parallel fashion
+Library for traversing the file system to collect [FileInfo]
+for all encoutnered files and directories, in a not-so-parallel fashion
 -}
 
 traverseFSPar :: Int -> FilePath -> IO [FileInfo]
