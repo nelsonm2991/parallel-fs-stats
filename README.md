@@ -8,7 +8,7 @@ Requires the following additional packages:
 - async (Control.Concurrent.Async, https://hackage.haskell.org/package/async)
 
 # Usage
-./main.hs <traversal-type> <absolute-path-root-directory>
+./main (traversal-type) (absolute-path-root-directory)
 
 Traversal Types:
 0 - sequential traversal
@@ -17,6 +17,8 @@ Traversal Types:
 
 # Build
 stack build
+stack ghc -- -O2 -threaded -rtsopts -eventlog app/Main.hs
+time ./app/Main (0,1, or 2) (rootDir absolute path)
 
 
 # Reproducing Test Results
