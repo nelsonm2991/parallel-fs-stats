@@ -11,15 +11,20 @@ Requires the following additional packages:
 ./main (traversal-type) (absolute-path-root-directory)
 
 Traversal Types:
+
 0 - sequential traversal
+
 1 - parallel traversal, version 1
+
 2 - parallel traversal, version 2
+
 
 # Build
 stack build
-stack ghc -- -O2 -threaded -rtsopts -eventlog app/Main.hs
-time ./app/Main (0,1, or 2) (rootDir absolute path)
 
+stack ghc -- -O2 -threaded -rtsopts -eventlog app/Main.hs
+
+time ./app/Main (0,1, or 2) (rootDir absolute path)
 
 # Reproducing Test Results
 All of my tests were ran on a directory containing a fresh clone of the linux kernel and
